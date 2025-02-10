@@ -18,7 +18,7 @@ ground_height = 50
 
 # dessiner un rectangle:
 largeur, hauteur = 30, 30
-rectangle= pygame.Rect(x,y,largeur,hauteur)
+rectangle = pygame.Rect(30, 30, largeur, hauteur)
 pygame.draw.rect(screen,BROWN,rectangle)
         
 # dessiner un cercle: pygame.draw.circle(screen,couleur, [x, y], rayon)
@@ -27,9 +27,9 @@ pygame.draw.rect(screen,BROWN,rectangle)
     #font1 = pygame.font.SysFont(None, 72)
     #txt1 = font1.render('NSI FOR EVER', True, GREY)
 
-# ajouter une image:
-    # vaisseau=pygame.image.load('vaisseau.png')
-    # rect_vaisseau=vaisseau.get_rect()
+# ajouter un nuage:
+    nuage = pygame.image.load('nuage pixel projet python .png')
+    rect_nuage = nuage.get_rect()
 
 # Dessiner texte ou image dans la boucle du jeu:
     # texte: screen.blit(txt1,(x,y))
