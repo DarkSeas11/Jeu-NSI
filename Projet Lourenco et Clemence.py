@@ -3,11 +3,10 @@ import random as rdm
 from utils import *
 import time
 
-
 pygame.init()
 
 # initialisation de l´écran avec sa taille et le titre
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("MY GAME")
 
 # gestion de la vitesse de rafraichissement de l´écran
@@ -17,9 +16,10 @@ clock = pygame.time.Clock()
 ground_height = 50
 
 # dessiner un rectangle:
-largeur, hauteur = 30, 30
-rectangle = pygame.Rect(30, 30, largeur, hauteur)
-pygame.draw.rect(screen,BROWN,rectangle)
+
+#largeur, hauteur = 30, 30
+#rectangle = pygame.Rect(30, 30, largeur, hauteur)
+#pygame.draw.rect(screen,BROWN,rectangle)
         
 # dessiner un cercle: pygame.draw.circle(screen,couleur, [x, y], rayon)
 
@@ -28,12 +28,16 @@ pygame.draw.rect(screen,BROWN,rectangle)
     #txt1 = font1.render('NSI FOR EVER', True, GREY)
 
 # ajouter un nuage:
-    nuage = pygame.image.load('nuage pixel projet python .png')
-    rect_nuage = nuage.get_rect()
+nuage = pygame.image.load('nuage.png')
+rect_nuage = nuage.get_rect()
+rect_nuage.top = 600
+rect_nuage.left = 100
+
+#ajouter un son de saut
+son = pygame.mixer.Sound("sonsaut.wav")
 
 # Dessiner texte ou image dans la boucle du jeu:
     # texte: screen.blit(txt1,(x,y))
-    # image: screen.blit(vaisseau,rect_vaisseau)
 
 
 
@@ -44,15 +48,16 @@ while run:
     # fond d´écran
     screen.fill(SKYBLUE)
     
-    # --- Gestion des évènements
-    for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                print("clic souris")
-            elif event.type == pygame.KEYDOWN:
-                if event.key==pygame.K_SPACE:
-                    pass
+    #son du saut lorsque espace est cliqué
+    if jump == True:
+        son.play()
+        pass
+    
+    # Gestion des évènements
+     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+    
     
 
     keys = pygame.key.get_pressed()
@@ -72,7 +77,8 @@ while run:
 
     
     # Dessins
-
+    #pygame.draw.rect(screen, BROWN, rectangle)
+    screen.blit(nuage, rect_nuage)
 
     #Mouvements
 
@@ -87,5 +93,3 @@ while run:
 
 # On sort de la boucle et on quitte
 pygame.quit()
- 
-
