@@ -1,5 +1,6 @@
 import pygame
 from utils_jeu import *
+import time
 
 #ecran
 screen = pygame.display.set_mode(size)
@@ -7,8 +8,8 @@ pygame.display.set_caption("MY GAME")
 fond_ecran=pygame.image.load('mario back.jpg')
 
 #création personnage
-x_pers=x_ecran/2-45
-y_pers=0
+x_pers=x_ecran/2
+y_pers=y_ecran-160
 pers=pygame.image.load('character.png')
 rect_pers=pygame.Rect(x_pers,y_pers,118,118)
 
@@ -25,10 +26,24 @@ liste_x=[]
 x_liste=0
 y_liste=y_sol
 x=0
-for f in range(20):
+avance=0
+for f in range(100):
     liste_x.append(x_liste)
     x_liste+=50
-
+def etages(l,y):
+    x1=40
+    a=0
+    if keys[pygame.K_RIGHT] and rect_pers.right>x_ecran-82:
+        a+=1
+        print(a)
+    elif keys[pygame.K_LEFT] and rect_pers.right<150:
+        a-=1
+        print(a)
+    elif a>=x1:
+        screen.blit(sol,(l[-i],y))
+        x1+=1
+    
+            
 #boucle jeu
 run = True
 while run:
@@ -46,9 +61,23 @@ while run:
     if keys[pygame.K_ESCAPE]:
         run = False
     if keys[pygame.K_RIGHT]:
-        rect_pers.left+=2
+        rect_pers.right+=1
+        if rect_pers.right>x_ecran-82:
+            rect_pers.right=x_ecran-82
+            if x>20:
+                x=20
+                avance+=1
+                time.sleep(0.1)
+            
     if keys[pygame.K_LEFT]:
-        rect_pers.left-=2
+        rect_pers.right-=1
+        if rect_pers.right<150:
+            rect_pers.right=150
+            if x<0:
+                x=0
+                avance-=1
+                time.sleep(0.1)
+            
     if keys[pygame.K_SPACE] and jump==False:
         speed-=20
         
@@ -57,18 +86,7 @@ while run:
     
     for i in range(20): #dessins carreaux sol
         screen.blit(sol,(liste_x[i],y_sol))
-        if rect_pers.left==x_ecran-218:
-            liste_x.pop[0]
-            for f in range(20):
-                liste_x[f]-=50
-            x+=1
-            print(x)
-            rect_pers.left=0
-        elif x==40:
-            y_liste-=50
-            screen.blit(sol,(liste_x[i],y_liste))
-        
-    
+        etages(liste_x,y_sol)
                         
     #mouvements
     rect_pers.bottom+=speed
@@ -78,10 +96,12 @@ while run:
     else:
         jump=True
         speed+=gravity*1.2
+        time.sleep(0.01)
     
     # mise à jour de l´écran
     pygame.display.update()
 
 # On sort de la boucle et on quitte
 pygame.quit()
+
 
