@@ -12,6 +12,7 @@ x_pers=x_ecran/2
 y_pers=y_ecran-160
 pers=pygame.image.load('character.png')
 rect_pers=pygame.Rect(x_pers,y_pers,118,118)
+dir=1
 
 #jump
 speed=0
@@ -30,18 +31,9 @@ avance=0
 for f in range(100):
     liste_x.append(x_liste)
     x_liste+=50
-def etages(l,y):
-    x1=40
-    a=0
-    if keys[pygame.K_RIGHT] and rect_pers.right>x_ecran-82:
-        a+=1
-        print(a)
-    elif keys[pygame.K_LEFT] and rect_pers.right<150:
-        a-=1
-        print(a)
-    elif a>=x1:
-        screen.blit(sol,(l[-i],y))
-        x1+=1
+    
+
+
     
             
 #boucle jeu
@@ -61,6 +53,7 @@ while run:
     if keys[pygame.K_ESCAPE]:
         run = False
     if keys[pygame.K_RIGHT]:
+        dir=1
         rect_pers.right+=1
         if rect_pers.right>x_ecran-82:
             rect_pers.right=x_ecran-82
@@ -71,6 +64,7 @@ while run:
             
     if keys[pygame.K_LEFT]:
         rect_pers.right-=1
+        dir=-1
         if rect_pers.right<150:
             rect_pers.right=150
             if x<0:
@@ -82,11 +76,15 @@ while run:
         speed-=20
         
     #dessins
-    screen.blit(pers,rect_pers) #dessin personnage
+    if dir==1:
+        screen.blit(pers,rect_pers) #dessin personnage
+    elif dir==-1:
+        screen.blit(pygame.transform.flip(pers,True,False),rect_pers)
     
     for i in range(20): #dessins carreaux sol
         screen.blit(sol,(liste_x[i],y_sol))
-        etages(liste_x,y_sol)
+    
+    
                         
     #mouvements
     rect_pers.bottom+=speed
@@ -103,5 +101,3 @@ while run:
 
 # On sort de la boucle et on quitte
 pygame.quit()
-
-
