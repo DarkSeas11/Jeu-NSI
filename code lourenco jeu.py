@@ -9,7 +9,7 @@ pygame.mixer.init()
 #ecran
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("MY GAME")
-fond_ecran=pygame.image.load('mario back.jpg')
+fond_ecran=pygame.image.load('Mario fond.png')
 
 # gestion de la vitesse de rafraichissement de l´écran
 clock = pygame.time.Clock()
@@ -18,7 +18,9 @@ clock = pygame.time.Clock()
 son = pygame.mixer.Sound("sonsaut.wav")
 
 #son de fond
-son_fond=pygamemixer.Sound("sondefond.mp3")
+sondefond=pygame.mixer.music.load("sondefond.mp3")
+print(sondefond)
+pygame.mixer.music.play()
 
 #création personnage
 x_pers=x_ecran/2
@@ -41,7 +43,7 @@ x_liste=0
 y_liste=y_sol
 x=0
 avance=0
-for f in range(100):
+for f in range(30):
     liste_x.append(x_liste)
     x_liste+=50
     
@@ -54,9 +56,6 @@ run = True
 while run:
     #fond ecran
     screen.blit(fond_ecran,(0,0))
-
-    #son de fond
-    son_fond.play()
     
     #event
     for event in pygame.event.get():
@@ -71,26 +70,29 @@ while run:
         run = False
     if keys[pygame.K_RIGHT]:
         dir=1
-        rect_pers.right+=1
-        if rect_pers.right>x_ecran-82:
-            rect_pers.right=x_ecran-82
+        rect_pers.right+=3
+        if rect_pers.right>x_ecran-382:
+            rect_pers.right=x_ecran-382
             if x>20:
                 x=20
                 avance+=1
+                print(avance)
                 time.sleep(0.1)
             
     if keys[pygame.K_LEFT]:
-        rect_pers.right-=1
+        rect_pers.right-=3
         dir=-1
-        if rect_pers.right<150:
-            rect_pers.right=150
+        if rect_pers.right<232:
+            rect_pers.right=232
             if x<0:
                 x=0
                 avance-=1
+                print(avance)
                 time.sleep(0.1)
             
     if keys[pygame.K_SPACE] and jump==False:
         speed-=20
+        son.play()
         
     #dessins
     if dir==1:
@@ -98,7 +100,7 @@ while run:
     elif dir==-1:
         screen.blit(pygame.transform.flip(pers,True,False),rect_pers)
     
-    for i in range(20): #dessins carreaux sol
+    for i in range(15): #dessins carreaux sol
         screen.blit(sol,(liste_x[i],y_sol))
     
     
@@ -110,7 +112,6 @@ while run:
         jump=False
     else:
         jump=True
-        son.play()
         speed+=gravity*1.2
         time.sleep(0.01)
     
