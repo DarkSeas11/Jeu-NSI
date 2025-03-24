@@ -19,7 +19,6 @@ son = pygame.mixer.Sound("sonsaut.wav")
 
 #son de fond
 sondefond=pygame.mixer.music.load("sondefond.mp3")
-print(sondefond)
 pygame.mixer.music.play()
 
 #création personnage
@@ -70,25 +69,21 @@ while run:
         run = False
     if keys[pygame.K_RIGHT]:
         dir=1
-        rect_pers.right+=3
-        if rect_pers.right>x_ecran-382:
-            rect_pers.right=x_ecran-382
-            if x>20:
-                x=20
-                avance+=1
-                print(avance)
-                time.sleep(0.1)
+        rect_pers.right+=4
+        if rect_pers.right>x_ecran-232:
+            rect_pers.right=x_ecran-232
+            avance+=1
+            print(avance)
+            time.sleep(0.1)
             
     if keys[pygame.K_LEFT]:
-        rect_pers.right-=3
+        rect_pers.right-=4
         dir=-1
         if rect_pers.right<232:
             rect_pers.right=232
-            if x<0:
-                x=0
-                avance-=1
-                print(avance)
-                time.sleep(0.1)
+            avance-=1
+            print(avance)
+            time.sleep(0.1)
             
     if keys[pygame.K_SPACE] and jump==False:
         speed-=20
@@ -100,7 +95,7 @@ while run:
     elif dir==-1:
         screen.blit(pygame.transform.flip(pers,True,False),rect_pers)
     
-    for i in range(15): #dessins carreaux sol
+    for i in range(26): #dessins carreaux sol
         screen.blit(sol,(liste_x[i],y_sol))
     
     
