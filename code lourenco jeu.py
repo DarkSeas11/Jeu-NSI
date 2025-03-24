@@ -1,6 +1,7 @@
 import pygame
 from utils_jeu import *
 import time
+import mixer
 
 #ecran
 screen = pygame.display.set_mode(size)
