@@ -7,6 +7,15 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("MY GAME")
 fond_ecran=pygame.image.load('mario back.jpg')
 
+# gestion de la vitesse de rafraichissement de l´écran
+clock = pygame.time.Clock()
+
+#ajouter un son de saut
+son = pygame.mixer.Sound("sonsaut.wav")
+
+#son de fond
+son_fond=pygamemixer.Sound("sondefond.mp3")
+
 #création personnage
 x_pers=x_ecran/2
 y_pers=y_ecran-160
@@ -41,6 +50,10 @@ run = True
 while run:
     #fond ecran
     screen.blit(fond_ecran,(0,0))
+
+    #son de fond
+    son_fond.play()
+    
     #event
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -93,6 +106,7 @@ while run:
         jump=False
     else:
         jump=True
+        son.play()
         speed+=gravity*1.2
         time.sleep(0.01)
     
