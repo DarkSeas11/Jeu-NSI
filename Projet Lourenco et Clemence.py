@@ -1,9 +1,10 @@
 import pygame
 import random as rdm
 from utils import *
-import time
+from time import time
 
 pygame.init()
+pygame.mixer.init()
 
 # initialisation de l´écran avec sa taille et le titre
 screen = pygame.display.set_mode((800,600))
@@ -11,6 +12,20 @@ pygame.display.set_caption("MY GAME")
 
 # gestion de la vitesse de rafraichissement de l´écran
 clock = pygame.time.Clock()
+
+#debut du temps
+debut = time()
+
+# ajouter un son de fond
+sondefond=pygame.mixer.music.load('sondefond.mp3')
+print(sondefond)
+
+# Jouer la musique
+pygame.mixer.music.play()
+
+# Ajouter un son de saut
+son = pygame.mixer.Sound("sonsaut.wav")
+print(son)
 
 #desssin du sol
 ground_height = 50
@@ -36,6 +51,7 @@ rect_nuage.left = 100
 #ajouter un son de saut
 son = pygame.mixer.Sound("sonsaut.wav")
 
+
 # Dessiner texte ou image dans la boucle du jeu:
     # texte: screen.blit(txt1,(x,y))
 
@@ -48,16 +64,13 @@ while run:
     # fond d´écran
     screen.fill(SKYBLUE)
     
-    #son du saut lorsque espace est cliqué
-    if jump == True:
-        son.play()
-        pass
-    
     # Gestion des évènements
-     for event in pygame.event.get():
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:  # Si la touche espace est presse 
+                son.play()
     
 
     keys = pygame.key.get_pressed()
@@ -72,6 +85,12 @@ while run:
        
     if keys[pygame.K_LEFT]:
        pass
+    
+    duree = time() - debut
+    if duree > 180:
+        pygame.mixer.music.stop()
+        pygame.quit()
+        run = False
 
 
 
@@ -90,6 +109,8 @@ while run:
     clock.tick(60)
     # mise à jour de l´écran
     pygame.display.update()
+    
 
-# On sort de la boucle et on quitte
-pygame.quit()
+# arret de la musique et on quitte
+pygame.mixer.music.stop()
+pygame.quit() 
