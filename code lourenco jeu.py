@@ -45,11 +45,7 @@ avance=0
 for f in range(30):
     liste_x.append(x_liste)
     x_liste+=50
-    
-
-
-    
-            
+        
 #boucle jeu
 run = True
 while run:
@@ -74,7 +70,7 @@ while run:
             rect_pers.right=x_ecran-232
             avance+=1
             print(avance)
-            time.sleep(0.1)
+            time.sleep(0.2)
             
     if keys[pygame.K_LEFT]:
         rect_pers.right-=4
@@ -83,7 +79,7 @@ while run:
             rect_pers.right=232
             avance-=1
             print(avance)
-            time.sleep(0.1)
+            time.sleep(0.2)
             
     if keys[pygame.K_SPACE] and jump==False:
         speed-=20
@@ -98,7 +94,29 @@ while run:
     for i in range(26): #dessins carreaux sol
         screen.blit(sol,(liste_x[i],y_sol))
     
-    
+        #niveau 1
+    if avance==10:
+        screen.blit(sol,(liste_x[25],y_sol-50))
+    if avance==11:
+        screen.blit(sol,(liste_x[24],y_sol-50))
+    if avance==12:
+        screen.blit(sol,(liste_x[23],y_sol-50))
+    if avance==13:
+        screen.blit(sol,(liste_x[22],y_sol-50))
+        screen.blit(sol,(liste_x[25],y_sol-100))
+    if avance==14:
+        screen.blit(sol,(liste_x[21],y_sol-50))
+        screen.blit(sol,(liste_x[24],y_sol-100))
+    if avance==15:
+        screen.blit(sol,(liste_x[20],y_sol-50))
+        screen.blit(sol,(liste_x[23],y_sol-100))
+        screen.blit(sol,(liste_x[25],y_sol-150))
+    if avance==16:
+        screen.blit(sol,(liste_x[20],y_sol-50))
+        screen.blit(sol,(liste_x[22],y_sol-100))
+        screen.blit(sol,(liste_x[24],y_sol-150))
+    if avance==17:
+        liste_x.remove(liste_x[25])
                         
     #mouvements
     rect_pers.bottom+=speed
@@ -107,8 +125,8 @@ while run:
         jump=False
     else:
         jump=True
-        speed+=gravity*1.2
-        time.sleep(0.01)
+        speed+=gravity*1
+        time.sleep(0.005)
     
     # mise à jour de l´écran
     pygame.display.update()
