@@ -42,8 +42,6 @@ y_sol=y_ecran-48
 sol=pygame.image.load('sol mario.png')
 liste_x=[]
 x_liste=0
-
-rect_sol2=pygame.Rect(600,y_sol-48,48,48)
 for f in range(250):
     liste_x.append(x_liste)
     x_liste+=48
@@ -80,13 +78,15 @@ while run:
         print(rect_pers.right)
         dir=1
         #Collisions
-        if pygame.Rect.colliderect(rect_pers,rect_sol1):
+        if rect_pers.right>=543 and rect_pers.bottom>y_sol-48:
             rect_pers.right+=0
             camera_x+=0
+        elif rect_pers.right>=543 and rect_pers.bottom<=y_sol-48:
+            y_pers=y_sol-48
         else:
             rect_pers.right+=3
             camera_x += 3
-        
+        y_pers=y_sol
             
     if keys[pygame.K_LEFT]:
         dir=-1
