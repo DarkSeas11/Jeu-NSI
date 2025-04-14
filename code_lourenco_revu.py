@@ -25,7 +25,7 @@ pygame.mixer.music.play()
 x_pers=0
 
 # pour tomber au début
-y_pers=0
+y_pers=250
 
 #booleen pour obstacle
 level=0
@@ -143,17 +143,11 @@ while run:
     
     #screen.blit(tube,rect_tube1)
     
-    #niveau 1
-    '''for i in range(len(liste_x)):
-        screen.blit(sol, (liste_x[i]-camera_x, y_sol))
-        screen.blit(sol, (liste_x[i]+960-camera_x, y_sol-48))
-        screen.blit(sol, (liste_x[i]+1200-camera_x, y_sol-96))'''
-    
     # on gére ici les interaction du joueur avec le sol
     
     # premier niveau
     for caisse in liste:
-        if caisse.left<=liste[19].left:
+        if caisse.left<=liste[19].left or caisse.left>=liste[24].left:
             screen.blit(sol,(caisse.left-camera_x,y_sol))
             
 
@@ -170,13 +164,10 @@ while run:
                 level=0
         elif caisse2.left>=liste2[24].left and caisse2.left<=liste2[32].left:
             screen.blit(sol,(caisse2.left-camera_x,y_sol-48))
-            if rect_pers.left>liste2[24].right-camera_x and jump==False and level==0:
-                camera_x-=3
-                rect_pers.left=liste2[24].right-camera_x
-            elif rect_pers.left>liste2[25].right-camera_x:
+            '''if rect_pers.left>liste2[25].right-camera_x:
                 level=1
             elif rect_pers.left>liste2[32].right-camera_x :
-                level=0  
+                level=0  '''
 
             
     # troisième niveau
@@ -188,17 +179,15 @@ while run:
                 rect_pers.right=liste3[17].left-camera_x
             elif rect_pers.right>liste3[17].left-camera_x and rect_pers.left<=liste3[19].right-camera_x and jump:
                 level=2
-            elif rect_pers.right<liste3[17].left-camera_x and rect_pers.right>liste2[14].left-camera_x:
+            elif rect_pers.right<liste3[17].left-camera_x and rect_pers.right>liste3[14].left-camera_x:
                 level=1
-            elif rect_pers.left>liste3[19].right-camera_x and rect_pers.right<=liste3[23].left-camera_x:
+            elif rect_pers.left>liste3[19].right-camera_x and rect_pers.right<liste3[24].left-camera_x:
                 level=-3
-        elif caisse3.left>=liste3[24].left and caisse3.left<=liste3[25].left:
+        elif caisse3.right>=liste3[24].right and caisse3.right<=liste3[25].right:
             screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
-            if rect_pers.left>=liste3[24].right-camera_x and jump==False and level==2:
-                camera_x-=3
-                rect_pers.left=liste3[24].right-camera_x
-            elif rect_pers.left>=liste3[24].right-camera_x and rect_pers.left<=liste3[25].right-camera_x:
+            if rect_pers.left>=liste3[23].right-camera_x and rect_pers.left<=liste3[25].right-camera_x:
                 level=2
+                rect_pers.right=liste3[23].right-camera_x+rect_pers.right
             elif rect_pers.left>liste3[25].right-camera_x:
                 level=1
             
@@ -226,4 +215,5 @@ while run:
     
 # On sort de la boucle et on quitte
 pygame.quit()
+
 
