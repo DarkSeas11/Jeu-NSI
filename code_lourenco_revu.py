@@ -50,7 +50,7 @@ y_sol=y_ecran-48
 niveau=y_sol
 sol=pygame.image.load('sol mario.png')
 
-# rectangles dans une liste
+# rectangles dans une liste pour les differents etages
 offset=0
 liste=[]
 for i in range(249):
@@ -78,7 +78,7 @@ for i in range(249):
 
 for caisse in liste3:
     caisse.left+=offset3
-    caisse.top=y_sol-96
+    caisse.top=y_sol-48*2
     offset3+=48
     
 offset4=0
@@ -88,9 +88,48 @@ for i in range(249):
 
 for caisse in liste4:
     caisse.left+=offset4
-    caisse.top=y_sol-144
+    caisse.top=y_sol-48*3
     offset4+=48
 
+offset5=0
+liste5=[]
+for i in range(249):
+    liste5.append(sol.get_rect())
+
+for caisse in liste5:
+    caisse.left+=offset5
+    caisse.top=y_sol-48*4
+    offset5+=48
+
+offset6=0
+liste6=[]
+for i in range(249):
+    liste6.append(sol.get_rect())
+
+for caisse in liste6:
+    caisse.left+=offset6
+    caisse.top=y_sol-48*5
+    offset6+=48
+
+offset7=0
+liste7=[]
+for i in range(249):
+    liste7.append(sol.get_rect())
+
+for caisse in liste7:
+    caisse.left+=offset7
+    caisse.top=y_sol-48*6
+    offset7+=48
+
+offset8=0
+liste8=[]
+for i in range(249):
+    liste8.append(sol.get_rect())
+
+for caisse in liste8:
+    caisse.left+=offset8
+    caisse.top=y_sol-48*7
+    offset8+=48
 
 # GAME OVER
 font1 = pygame.font.SysFont(None, 200)
@@ -166,7 +205,8 @@ while run:
                 level=1
             elif rect_pers.left>liste2[32].right-camera_x :
                 level=0
-
+        elif caisse2.left>=liste2[40].left:
+            screen.blit(sol,(caisse2.left-camera_x,y_sol-48))
             
     # troisième niveau
     for caisse3 in liste3:
@@ -181,13 +221,18 @@ while run:
                 level=1
             elif rect_pers.left>liste3[19].right-camera_x and rect_pers.right<liste3[23].left-camera_x:
                 level=-3
-        elif caisse3.right>=liste3[24].right and caisse3.right<=liste3[25].right:
+        elif caisse3.left>=liste3[24].left and caisse3.left<=liste3[25].left:
             screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
             if rect_pers.left>=liste3[24].right-camera_x and rect_pers.left<=liste3[25].right-camera_x:
                 level=2
+        elif caisse3.left>=liste3[41]:
+            screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
             
+    #4e niveau
+    for caisse4 in liste4:
+        if caisse4.left>=liste4[42]:
+            screen.blit(sol,(caisse4.left-camera_x,y_sol-144))
             
-    #print(level)
     
     # détermine le niveau de heuteur
     niveau=y_sol-48*level
@@ -198,7 +243,7 @@ while run:
         rect_pers.bottom=niveau
     elif level==-3 and rect_pers.top>y_sol:
         screen.blit(txt1,(x_ecran/6+20,y_ecran/2-30))
-        time.sleep(5)
+        time.sleep(2)
         run=False
     else:
         jump=True
