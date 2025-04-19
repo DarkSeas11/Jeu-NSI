@@ -1,6 +1,6 @@
 import pygame
 from jeu import *
-from time import time
+import time
 
 #initiation
 pygame.init()
@@ -39,7 +39,7 @@ while run:
             if bouton_joueur_lourenco_rect.collidepoint(event.pos):
                 lourenco()
             elif bouton_joueur_clemence_rect.collidepoint(event.pos):
-                print("Joueur Clémence séléctionné")
+                clemence()
             #si le bouton sortie est préssé alors quitter le jeu
             elif bouton_sortie_rect.collidepoint(event.pos):
                 run = False 
