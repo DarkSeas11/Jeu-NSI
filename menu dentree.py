@@ -39,7 +39,7 @@ while run:
             if bouton_joueur_lourenco_rect.collidepoint(event.pos):
                 lourenco()
             elif bouton_joueur_clemence_rect.collidepoint(event.pos):
-                clemence()
+                print("Joueur Clémence séléctionné")
             #si le bouton sortie est préssé alors quitter le jeu
             elif bouton_sortie_rect.collidepoint(event.pos):
                 run = False 
@@ -57,4 +57,3 @@ while run:
 
 
 pygame.quit()
-
