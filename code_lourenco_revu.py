@@ -17,9 +17,9 @@ clock = pygame.time.Clock()
 #ajouter un son de saut
 son = pygame.mixer.Sound("sonsaut.wav")
 
-#son de fond
+'''#son de fond
 sondefond=pygame.mixer.music.load("sondefond.mp3")
-pygame.mixer.music.play()
+pygame.mixer.music.play()'''
 
 #création personnage
 x_pers=0
@@ -133,7 +133,10 @@ for caisse in liste8:
 
 # GAME OVER
 font1 = pygame.font.SysFont(None, 200)
-txt1 = font1.render('GAME OVER', True, (255,0,0),(0,0,0))
+txt1 = font1.render('GAME OVER', True, (255,0,0),None)
+
+#obstacle
+obs=False
 
 #boucle jeu
 run = True
@@ -159,6 +162,9 @@ while run:
         if rect_pers.right>=x_ecran-240:
             rect_pers.right+=0
             camera_x+=5
+        elif obs:
+            camera_x+=0
+            rect_pers.right+=0
         else:
             rect_pers.right+=3
             camera_x += 5
@@ -168,6 +174,9 @@ while run:
         if rect_pers.left<=240:
             rect_pers.right-=0
             camera_x -= 5
+        elif obs:
+            rect_pers.right+=0
+            camera_x+=0
         else:
             rect_pers.right-=3
             camera_x-=5
@@ -193,8 +202,9 @@ while run:
         if caisse2.left>=liste2[14].left and caisse2.left<=liste2[19].left:
             screen.blit(sol,(caisse2.left-camera_x,y_sol-48))
             if rect_pers.right>liste2[14].left-camera_x and jump==False and level==0 and rect_pers.right<liste2[17].left-camera_x:
-                camera_x-=3
-                rect_pers.right=liste2[14].left-camera_x
+                #camera_x-=3
+                #rect_pers.right=liste2[14].left-camera_x
+                obs=True
             elif rect_pers.right>liste2[14].left-camera_x and jump and rect_pers.right<liste2[17].left-camera_x:
                 level=1
             elif rect_pers.right<liste2[14].left-camera_x :
@@ -203,7 +213,7 @@ while run:
             screen.blit(sol,(caisse2.left-camera_x,y_sol-48))
             if rect_pers.left>liste2[25].right-camera_x and rect_pers.right<=liste2[32].left-camera_x:
                 level=1
-            elif rect_pers.left>liste2[32].right-camera_x :
+            elif rect_pers.left>liste2[32].right-camera_x and rect_pers.right<liste2[40].right-camera_x:
                 level=0
         elif caisse2.left>=liste2[40].left:
             screen.blit(sol,(caisse2.left-camera_x,y_sol-48))
@@ -213,26 +223,99 @@ while run:
         if caisse3.left>=liste3[17].left and caisse3.left<=liste3[19].left:
             screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
             if rect_pers.right>liste3[17].left-camera_x and jump==False and level==1 and rect_pers.right<=liste3[19].left-camera_x:
-                camera_x-=3
-                rect_pers.right=liste3[17].left-camera_x
+                #rect_pers.right=liste3[17].left-camera_x
+                obs=True
             elif rect_pers.right>liste3[17].left-camera_x and rect_pers.left<=liste3[19].right-camera_x and jump:
                 level=2
             elif rect_pers.right<liste3[17].left-camera_x and rect_pers.right>liste3[14].left-camera_x:
                 level=1
             elif rect_pers.left>liste3[19].right-camera_x and rect_pers.right<liste3[23].left-camera_x:
                 level=-3
+                if rect_pers.right>=liste3[23].left-camera_x and rect_pers.top<y_sol-48*2:
+                    rect_pers.right=liste3[23].left-camera_x
         elif caisse3.left>=liste3[24].left and caisse3.left<=liste3[25].left:
             screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
-            if rect_pers.left>=liste3[24].right-camera_x and rect_pers.left<=liste3[25].right-camera_x:
+            if rect_pers.left>=liste3[24].left-camera_x and rect_pers.left<=liste3[25].right-camera_x and level==1 and jump==False:
+                #rect_pers.left=liste3[25].right-camera_x
+                obs=True
+            elif rect_pers.right>=liste3[24].left-camera_x and rect_pers.left<=liste3[25].right-camera_x:
                 level=2
-        elif caisse3.left>=liste3[41]:
+        elif caisse3.left>=liste3[41].left:
             screen.blit(sol,(caisse3.left-camera_x,y_sol-96))
+            if rect_pers.right>liste3[41].left-camera_x and jump==False and level==1: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste3[41].left-camera_x
+                obs=True
+            elif rect_pers.right>liste3[41].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=2
+            elif rect_pers.right<liste3[41].left-camera_x and rect_pers.right>liste3[40].left-camera_x:
+                level=1
+            
             
     #4e niveau
     for caisse4 in liste4:
-        if caisse4.left>=liste4[42]:
+        if caisse4.left>=liste4[42].left:
             screen.blit(sol,(caisse4.left-camera_x,y_sol-144))
+            if rect_pers.right>liste4[42].left-camera_x and jump==False and level==2: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste4[42].left-camera_x
+                obs=True
+            elif rect_pers.right>liste4[42].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=3
+            elif rect_pers.right<liste4[42].left-camera_x and rect_pers.right>liste4[41].left-camera_x:
+                level=2
+                
+    #5e niveau
+    for caisse5 in liste5:
+        if caisse5.left>=liste5[43].left:
+            screen.blit(sol,(caisse5.left-camera_x,y_sol-(48*4)))
+            if rect_pers.right>liste5[43].left-camera_x and jump==False and level==2: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste5[43].left-camera_x
+                obs=True
+            elif rect_pers.right>liste5[43].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=4
+            elif rect_pers.right<liste5[43].left-camera_x and rect_pers.right>liste5[42].left-camera_x:
+                level=3
+                
+    #6e niveau
+    for caisse6 in liste6:
+        if caisse6.left>=liste6[44].left:
+            screen.blit(sol,(caisse6.left-camera_x,y_sol-(48*5)))
+            if rect_pers.right>liste6[44].left-camera_x and jump==False and level==2: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste6[44].left-camera_x
+                obs=True
+            elif rect_pers.right>liste6[44].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=5
+            elif rect_pers.right<liste6[44].left-camera_x and rect_pers.right>liste6[43].left-camera_x:
+                level=4
             
+    #7e niveau
+    for caisse7 in liste7:
+        if caisse7.left>=liste7[45].left:
+            screen.blit(sol,(caisse7.left-camera_x,y_sol-(48*6)))
+            if rect_pers.right>liste7[45].left-camera_x and jump==False and level==2: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste7[45].left-camera_x
+                obs=True
+            elif rect_pers.right>liste7[45].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=6
+            elif rect_pers.right<liste7[45].left-camera_x and rect_pers.right>liste7[44].left-camera_x:
+                level=5
+                
+    #8e niveau
+    for caisse8 in liste8:
+        if caisse8.left>=liste8[46].left:
+            screen.blit(sol,(caisse8.left-camera_x,y_sol-(48*7)))
+            if rect_pers.right>liste8[46].left-camera_x and jump==False and level==2: #and rect_pers.right<=liste3[19].left-camera_x:
+                #camera_x-=3
+                #rect_pers.right=liste8[46].left-camera_x
+                obs=True
+            elif rect_pers.right>liste8[46].left-camera_x and jump: #and rect_pers.left<=liste3[19].right-camera_x and jump:
+                level=7
+            elif rect_pers.right<liste8[46].left-camera_x and rect_pers.right>liste8[45].left-camera_x:
+                level=6
     
     # détermine le niveau de heuteur
     niveau=y_sol-48*level
@@ -243,7 +326,7 @@ while run:
         rect_pers.bottom=niveau
     elif level==-3 and rect_pers.top>y_sol:
         screen.blit(txt1,(x_ecran/6+20,y_ecran/2-30))
-        time.sleep(2)
+        time.sleep(1)
         run=False
     else:
         jump=True
